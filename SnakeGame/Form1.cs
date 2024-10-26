@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Media;
 
 namespace SnakeGame
 {
@@ -11,25 +14,38 @@ namespace SnakeGame
         private Point food;
         private Point? yellowFood = null;
         private int direction;
-        private int score = 0; // Biến điểm số
+        private int score = 0;
         private Random random = new Random();
         private const int boxSize = 10;
-        private const double moveSpeed = 10;
+        private const double moveSpeed = 20;
         private double currentSpeed = 10;
         private double frameCounter = 0;
+        private string playerName;
+        private int bestScore;
+        private SoundPlayer loseSound;
+        private SoundPlayer eatSound;
+        private SoundPlayer eatYellowSound;
 
 
-        public Form1()
+        public Form1(string username, int bestScore)
         {
             InitializeComponent();
+            playerName = username;
+            this.bestScore = bestScore;
+
+            loseSound = new SoundPlayer(@"Resources/death.wav");
+            eatSound = new SoundPlayer(@"Resources/eat.wav");
+            eatYellowSound = new SoundPlayer(@"Resources/eat_yellow.wav");
+
+            lblPlayer.Text = "Player: " + playerName; 
+            lblBest.Text = "Best Score: " + bestScore;
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             this.KeyPreview = true;
             gameTimer.Interval = 100;
             gameTimer.Tick += new EventHandler(GameTimer_Tick);
-            //StartGame();
             this.BackColor = Color.Black;
             lblStart.Visible = true;
-            lblSpeed.Text = "Speed: " + currentSpeed.ToString();
+            lblSpeed.Text = "Speed: " + Math.Round(currentSpeed, 1).ToString("0.0");
         }
 
         private void StartGame()
@@ -37,15 +53,14 @@ namespace SnakeGame
             lblStart.Visible = false;
             snake = new List<Point>();
 
-            // Tính toán tọa độ giữa màn hình
             int startX = (gamePanel.Width / 2) / boxSize * boxSize;
             int startY = (gamePanel.Height / 2) / boxSize * boxSize;
 
-            snake.Add(new Point(startX, startY)); // Đặt rắn ở giữa
+            snake.Add(new Point(startX, startY));
             direction = 0;
-            score = 0; // Đặt lại điểm khi bắt đầu game mới
+            score = 0;
             currentSpeed = 10;
-            lblScore.Text = "Score: 0"; // Cập nhật điểm
+            lblScore.Text = "Score: 0";
             lblSpeed.Text = "Speed: " + currentSpeed.ToString();
             GenerateFood();
             yellowFood = null;
@@ -74,15 +89,15 @@ namespace SnakeGame
             {
                 if (i == 0)
                 {
-                    g.FillRectangle(Brushes.Red, snake[i].X, snake[i].Y, boxSize, boxSize); // Đầu rắn
+                    g.FillRectangle(Brushes.Red, snake[i].X, snake[i].Y, boxSize, boxSize);
                 }
                 else
                 {
-                    g.FillRectangle(Brushes.White, snake[i].X, snake[i].Y, boxSize, boxSize); // Thân rắn
+                    g.FillRectangle(Brushes.White, snake[i].X, snake[i].Y, boxSize, boxSize);
                 }
             }
 
-            g.FillRectangle(Brushes.Blue, food.X, food.Y, boxSize, boxSize); // Thức ăn
+            g.FillRectangle(Brushes.Blue, food.X, food.Y, boxSize, boxSize);
             if (yellowFood != null)
             {
                 g.FillRectangle(Brushes.Yellow, yellowFood.Value.X, yellowFood.Value.Y, boxSize, boxSize);
@@ -91,17 +106,17 @@ namespace SnakeGame
 
         private void MoveSnake()
         {
-            frameCounter += 5;
+            frameCounter += 10;
             if (frameCounter % moveSpeed != 0) return;
 
             Point newHead = snake[0];
 
             switch (direction)
             {
-                case 0: newHead.Y -= boxSize; break; // Lên
-                case 1: newHead.X += boxSize; break; // Phải
-                case 2: newHead.Y += boxSize; break; // Xuống
-                case 3: newHead.X -= boxSize; break; // Trái
+                case 0: newHead.Y -= boxSize; break;
+                case 1: newHead.X += boxSize; break;
+                case 2: newHead.Y += boxSize; break;
+                case 3: newHead.X -= boxSize; break;
             }
 
             if (newHead == food)
@@ -110,11 +125,12 @@ namespace SnakeGame
                 GenerateFood();
                 score += 1;
                 lblScore.Text = "Score: " + score.ToString();
+                eatSound.Play();
                 if (score % 15 == 0)
                 {
                     currentSpeed += 0.1;
-                    gameTimer.Interval = Math.Max(2, gameTimer.Interval - 20); // Giảm thời gian giữa các lần tick
-                    lblSpeed.Text = "Speed: " + currentSpeed.ToString();
+                    gameTimer.Interval = Math.Max(2, gameTimer.Interval - 20);
+                    lblSpeed.Text = "Speed: " + Math.Round(currentSpeed, 1).ToString("0.0");
 
                 }
             }
@@ -124,18 +140,26 @@ namespace SnakeGame
                 yellowFood = null;
                 score += 2;
                 lblScore.Text = "Score" + score.ToString();
+                eatYellowSound.Play();
             }
             else
             {
                 snake.Insert(0, newHead);
-                snake.RemoveAt(snake.Count - 1); // Loại bỏ phần đuôi rắn
+                snake.RemoveAt(snake.Count - 1);
             }
 
             if (newHead.X < 0 || newHead.Y < 0 || newHead.X >= gamePanel.Width || newHead.Y >= gamePanel.Height)
             {
                 gameTimer.Stop();
+                loseSound.Play();
+                if (score > bestScore)
+                {
+                    UpdateBestScore(score);
+                    lblBest.Text = "Best Score: " + score;
+                }
+                currentSpeed = 10;
                 MessageBox.Show("Game Over! Your score: " + score);
-                btnPlayAgain.Visible = true; // Hiện nút chơi lại
+                btnPlayAgain.Visible = true;
             }
         }
 
@@ -156,10 +180,27 @@ namespace SnakeGame
 
         private void btnPlayAgain_Click(object sender, EventArgs e)
         {
-            StartGame();
-            btnPlayAgain.Visible = false; // Ẩn nút "Chơi lại"
             currentSpeed = 10;
+            StartGame();
+            btnPlayAgain.Visible = false;
+            lblSpeed.Text = "Speed: " + Math.Round(currentSpeed, 1).ToString("0.0");
         }
+
+        private void UpdateBestScore(int score)
+        {
+            string connectionString = "Data Source=TRAN-XUAN-HOANG\\SQLEXPRESS;Initial Catalog=SnakeGame;Integrated Security=True";
+            string query = "UPDATE Game SET best_score = @BestScore WHERE user_name = @UserName";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@UserName", playerName);
+                command.Parameters.AddWithValue("@BestScore", score);
+                command.ExecuteNonQuery();
+            }
+        }
+
 
         private void lblStart_Click(object sender, EventArgs e)
         {
@@ -167,6 +208,21 @@ namespace SnakeGame
         }
 
         private void lblSpeed_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblBest_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPlayer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }

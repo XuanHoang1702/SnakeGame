@@ -36,6 +36,8 @@
             lblScore = new Label();
             btnPlayAgain = new Button();
             lblSpeed = new Label();
+            lblBest = new Label();
+            lblPlayer = new Label();
             gamePanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,7 +46,7 @@
             gamePanel.Controls.Add(lblStart);
             gamePanel.Location = new Point(3, 47);
             gamePanel.Name = "gamePanel";
-            gamePanel.Size = new Size(588, 454);
+            gamePanel.Size = new Size(590, 456);
             gamePanel.TabIndex = 0;
             gamePanel.Paint += gamePanel_Paint;
             // 
@@ -106,11 +108,35 @@
             lblSpeed.Text = "label1";
             lblSpeed.Click += lblSpeed_Click;
             // 
+            // lblBest
+            // 
+            lblBest.AutoSize = true;
+            lblBest.ForeColor = Color.White;
+            lblBest.Location = new Point(367, 12);
+            lblBest.Name = "lblBest";
+            lblBest.Size = new Size(50, 20);
+            lblBest.TabIndex = 5;
+            lblBest.Text = "label1";
+            lblBest.Click += lblBest_Click;
+            // 
+            // lblPlayer
+            // 
+            lblPlayer.AutoSize = true;
+            lblPlayer.ForeColor = Color.White;
+            lblPlayer.Location = new Point(466, 12);
+            lblPlayer.Name = "lblPlayer";
+            lblPlayer.Size = new Size(50, 20);
+            lblPlayer.TabIndex = 6;
+            lblPlayer.Text = "label1";
+            lblPlayer.Click += lblPlayer_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(592, 503);
+            ClientSize = new Size(592, 500);
+            Controls.Add(lblPlayer);
+            Controls.Add(lblBest);
             Controls.Add(lblSpeed);
             Controls.Add(btnPlayAgain);
             Controls.Add(lblScore);
@@ -118,6 +144,7 @@
             Controls.Add(gamePanel);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             KeyDown += Form1_KeyDown;
             gamePanel.ResumeLayout(false);
             gamePanel.PerformLayout();
@@ -134,5 +161,7 @@
         private Button btnPlayAgain;
         private Label lblStart;
         private Label lblSpeed;
+        private Label lblBest;
+        private Label lblPlayer;
     }
 }

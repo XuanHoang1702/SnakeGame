@@ -9,6 +9,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Sound\death.wav" />
+    <None Remove="Sound\eat.wav" />
+    <None Remove="Sound\eat_yellow.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Sound\death.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sound\eat.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sound\eat_yellow.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Image\Snake.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

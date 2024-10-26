@@ -14,3 +14,14 @@ D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\refint\SnakeGame.dll
 D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\SnakeGame.pdb
 D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\SnakeGame.genruntimeconfig.cache
 D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\ref\SnakeGame.dll
+D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\SnakeGame.sourcelink.json
+D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\SnakeGame.Login.resources
+D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\SnakeGame.Register.resources
+D:\LTC#\SnakeGame\SnakeGame\bin\Debug\net8.0-windows\System.Data.SqlClient.dll
+D:\LTC#\SnakeGame\SnakeGame\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
+D:\LTC#\SnakeGame\SnakeGame\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
+D:\LTC#\SnakeGame\SnakeGame\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
+D:\LTC#\SnakeGame\SnakeGame\bin\Debug\net8.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\LTC#\SnakeGame\SnakeGame\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\SnakeGame.csproj.AssemblyReference.cache
+D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\SnakeGame.csproj.Up2Date
