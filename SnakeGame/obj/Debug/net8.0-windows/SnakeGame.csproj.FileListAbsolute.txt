@@ -25,3 +25,9 @@ D:\LTC#\SnakeGame\SnakeGame\bin\Debug\net8.0-windows\runtimes\unix\lib\netcoreap
 D:\LTC#\SnakeGame\SnakeGame\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\SnakeGame.csproj.AssemblyReference.cache
 D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\SnakeGame.csproj.Up2Date
+D:\LTC#\SnakeGame\SnakeGame\bin\Debug\net8.0-windows\Sound\death.wav
+D:\LTC#\SnakeGame\SnakeGame\bin\Debug\net8.0-windows\Sound\eat.wav
+D:\LTC#\SnakeGame\SnakeGame\bin\Debug\net8.0-windows\Sound\eat_yellow.wav
+D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\Interop.WMPLib.dll
+D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\Interop.MediaPlayer.dll
+D:\LTC#\SnakeGame\SnakeGame\obj\Debug\net8.0-windows\SnakeGame.csproj.ResolveComReference.cache

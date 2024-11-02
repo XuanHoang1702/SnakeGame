@@ -46,7 +46,7 @@
             gamePanel.Controls.Add(lblStart);
             gamePanel.Location = new Point(3, 47);
             gamePanel.Name = "gamePanel";
-            gamePanel.Size = new Size(590, 456);
+            gamePanel.Size = new Size(603, 456);
             gamePanel.TabIndex = 0;
             gamePanel.Paint += gamePanel_Paint;
             // 
@@ -134,7 +134,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(592, 500);
+            ClientSize = new Size(602, 500);
             Controls.Add(lblPlayer);
             Controls.Add(lblBest);
             Controls.Add(lblSpeed);
